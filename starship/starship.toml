@@ -1,8 +1,4 @@
 # Core layout
-#format = '''
-#[╭─](gotham_blue)$username$hostname([─](gotham_blue)$directory)$git_branch$git_status$cmd_duration$fill$golang
-#[╰─](gotham_blue)$character'''
-
 format = """
 $username\
 $hostname\
