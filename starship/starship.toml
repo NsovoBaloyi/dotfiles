@@ -1,37 +1,12 @@
-add_newline = true
-palette = 'gotham'
-
-[palettes.gotham]
-gotham_blue = '#116692'   # Deep midnight blue for structure
-gotham_green = '#2aa889'  # Striking teal-green
-gotham_purple = '#888ca6' # Muted neon purple/magenta
-gotham_cyan = '#33859e'   # Deep cyan
-gotham_fg = '#98d1ce'     # High-contrast light cyan for text
-gotham_red = '#c23127'    # Gritty crimson red
-gotham_yellow = '#edb443' # Warning yellow
-dark_blue = '#5E81AC'
-blue = '#81A1C1'
-teal = '#88C0D0'
-red = '#BF616A'
-orange = '#D08770'
-green = '#A3BE8C'
-yellow = '#EBCB8B'
-purple = '#B48EAD'
-gray = '#434C5E'
-black = '#2E3440'
-white ='#E7E7E7'
-purple_blue = '#7F52FF'
-dark_purple = '#512BD4'
-
 # Core layout
 #format = '''
-#[╭─](gotham_blue)$username$hostname[─](gotham_blue)$directory$git_branch$git_status$cmd_duration
+#[╭─](gotham_blue)$username$hostname([─](gotham_blue)$directory)$git_branch$git_status$cmd_duration$fill$golang
 #[╰─](gotham_blue)$character'''
 
 format = """
-[╭─](gotham_blue)
+$username\
+$hostname\
 $directory\
-[─](gotham_blue)
 $git_branch\
 $git_status\
 $cmd_duration\
@@ -39,7 +14,7 @@ $fill\
 $dotnet\
 $python\
 $lua\
-$nodejs\
+nodejs\
 $golang\
 $haskell\
 $rust\
@@ -47,53 +22,56 @@ $ruby\
 $kotlin\
 $docker_context\
 $jobs\
+$time\
 $line_break\
-[╰─](gotham_blue)
 $character"""
 
+add_newline = true
+palette = 'gotham'
+
 [username]
-format = '\[(gotham_blue)[$user]($style)'
+format = '[╭─ ](gotham_blue)[$user]($style)'
 style_user = 'bold gotham_green'
 style_root = 'bold gotham_red'
 show_always = true
 
 [hostname]
-format = '[ ◈ ](bold gotham_purple)[$hostname](bold gotham_fg)\](gotham_blue)'
+format = '[◈](bold gotham_purple)[$hostname](bold gotham_fg)(gotham_blue) '
 trim_at = '.'
 ssh_only = false
 disabled = false
 
 [directory]
 style = 'bold gotham_cyan'
-format = '-\[(gotham_blue)[$path]($style)\](gotham_blue)'
+format = '\[(gotham_blue)[$path]($style)\](gotham_blue)'
 truncation_length = 3
 truncate_to_repo = false
+truncation_symbol = '.../' 
 
-[directory.substitutions]
-'Documents' = '󰈙'
-'Downloads' = ' '
-'Music' = ' '
-'Pictures' = ' '
+#[directory.substitutions]
+#'Documents' = '󰈙'
+#'Downloads' = ' '
+#'Music' = ' '
+#'Pictures' = ' '
 
 [git_branch]
-#symbol = ' '
-symbol = " "
-style = "bold gotham_purple"
-format = "[-\\(](gotham_blue)[$symbol$branch]($style)\\)](gotham_blue)"
+symbol = ' '
+style = "fg:green"
+format = " - [$symbol$branch]($style) "
 
 [git_status]
 style = 'gotham_red'
-format = '([ $all_status$ahead_behind]($style) )'
+format = '([$all_status$ahead_behind]($style))'
 
 [fill]
 symbol = ' '
 
 [cmd_duration]
 min_time = 2000
-format = "[ ⏱ $duration](bold gotham_yellow)"
+format = "[ $duration](bold gotham_yellow)"
 
 [character]
-success_symbol = '[λ](bold gotham_cyan)'
+success_symbol = '[╰─](gotham_blue)[λ](bold gotham_cyan)'
 error_symbol = '[✗](bold gotham_red)'
 vimcmd_symbol = '[❮](bold gotham_green)'
 
@@ -122,25 +100,31 @@ symbol = ' '
 [nodejs]
 style = 'blue'
 symbol = ' '
+format = '[$symbol($version )]($style)'
 
 [golang]
 style = 'blue'
 symbol = ' '
+format = '[$symbol($version )]($style)'
 
 [haskell]
 style = 'blue'
 symbol = ' '
+format = '[$symbol($version )]($style)'
 
 [rust]
 style = 'orange'
 symbol = ' '
+format = '[$symbol($version )]($style)'
 
 [ruby]
 style = 'blue'
 symbol = ' '
+format = '[$symbol($version )]($style)'
 
 [package]
 symbol = '󰏗 '
+format = '[$symbol($version )]($style)'
 
 [aws]
 symbol = ' '
@@ -159,3 +143,32 @@ symbol = ' '
 style = 'red'
 number_threshold = 1
 format = '[$symbol]($style)'
+
+[time]
+disabled = false
+time_format = '%R'
+format = ' $time($style)'
+style = 'dimmed gotham_purple'
+time_range = '09:00:00-17:00:00'
+
+[palettes.gotham]
+gotham_blue = '#116692'   # Deep midnight blue for structure
+gotham_green = '#2aa889'  # Striking teal-green
+gotham_purple = '#888ca6' # Muted neon purple/magenta
+gotham_cyan = '#33859e'   # Deep cyan
+gotham_fg = '#98d1ce'     # High-contrast light cyan for text
+gotham_red = '#c23127'    # Gritty crimson red
+gotham_yellow = '#edb443' # Warning yellow
+dark_blue = '#5E81AC'
+blue = '#81A1C1'
+teal = '#88C0D0'
+red = '#BF616A'
+orange = '#D08770'
+green = '#A3BE8C'
+yellow = '#EBCB8B'
+purple = '#B48EAD'
+gray = '#434C5E'
+black = '#2E3440'
+white ='#E7E7E7'
+purple_blue = '#7F52FF'
+dark_purple = '#512BD4'
